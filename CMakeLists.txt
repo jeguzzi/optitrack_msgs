@@ -1,36 +1,60 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.5)
 project(optitrack_msgs)
 
-# search for everything we need to build the messages, dont forget the message_generation
-find_package(catkin REQUIRED COMPONENTS
-  message_generation
-  geometry_msgs
-  std_msgs
-)
+# Default to C99
+if(NOT CMAKE_C_STANDARD)
+  set(CMAKE_C_STANDARD 99)
+endif()
 
-# search for all msg files
-FILE(GLOB messages_to_build RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}/msg"
-    "${CMAKE_CURRENT_SOURCE_DIR}/msg/*.msg")
+# Default to C++14
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
 
-# notify catkin to look at the previously found msg files
-add_message_files(
-   FILES
-   ${messages_to_build}
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+# find dependencies
+find_package(ament_cmake REQUIRED)
+# uncomment the following section in order to fill in
+# further dependencies manually.
+# find_package(<dependency> REQUIRED)
+
+# if(BUILD_TESTING)
+#   find_package(ament_lint_auto REQUIRED)
+#   # the following line skips the linter which checks for copyrights
+#   # uncomment the line when a copyright and license is not present in all source files
+#   #set(ament_cmake_copyright_FOUND TRUE)
+#   # the following line skips cpplint (only works in a git repo)
+#   # uncomment the line when this package is not in a git repo
+#   #set(ament_cmake_cpplint_FOUND TRUE)
+#   ament_lint_auto_find_test_dependencies()
+# endif()
+
+find_package(rosidl_default_generators REQUIRED)
+
+find_package(std_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/Data.msg"
+  "msg/Description.msg"
+  "msg/RigidBody.msg"
+  "msg/RigidBodyDescription.msg"
+  "msg/RigidBodyMarker.msg"
+  "msg/RigidBodyMarkerDescription.msg"
+  "msg/Device.msg"
+  "msg/Channel.msg"
+  "msg/DeviceDescription.msg"
+  "msg/ForcePlateDescription.msg"
+  "msg/LabeledMarker.msg"
+  "msg/MarkerSet.msg"
+  "msg/MarkerSetDescription.msg"
+  "msg/Skeleton.msg"
+  "msg/SkeletonDescription.msg"
+  "msg/CameraDescription.msg"
+  DEPENDENCIES std_msgs geometry_msgs
  )
 
-# build the header files from the msg files, and notify catkin about the dependencies
- generate_messages(
-   DEPENDENCIES
-   geometry_msgs
-   std_msgs
- )
-
-# export the dependencis of this package for who ever depends on us
-catkin_package(
-CATKIN_DEPENDS message_runtime geometry_msgs std_msgs
-)
-
-include_directories(
-  ${catkin_INCLUDE_DIRS}
-)
-
+ament_package()

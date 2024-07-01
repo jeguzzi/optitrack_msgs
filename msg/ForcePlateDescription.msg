@@ -1,0 +1,10 @@
+int16 id
+string serial_number
+float32 width
+float32 length
+geometry_msgs/Vector3 position
+float32[144] cal_matrix
+float32[12] corners
+int16 plate_type
+int16 data_type
+string[] channels
