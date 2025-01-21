@@ -1,7 +1,7 @@
 std_msgs/Header header
 int32 frame_number
 MarkerSet[] marker_sets
-MarkerSet unlabeled_markers
+geometry_msgs/Vector3[] unlabeled_markers_positions
 RigidBody[] rigid_bodies
 Skeleton[] skeletons
 LabeledMarker[] labeled_markers
