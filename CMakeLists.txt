@@ -54,6 +54,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Skeleton.msg"
   "msg/SkeletonDescription.msg"
   "msg/CameraDescription.msg"
+  "msg/Odometries.msg"
+  "msg/ClockSync.msg"
   DEPENDENCIES std_msgs geometry_msgs
  )
 

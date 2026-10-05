@@ -1,0 +1,3 @@
+builtin_interfaces/Time client_time
+builtin_interfaces/Time server_time
+float64 beta
